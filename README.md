@@ -1,14 +1,24 @@
 This is an unofficial Homebrew custom tap to install https://github.com/Mozilla-Ocho/llamafile for OSX on Arm64.
 
 
-To install the `llamafile` command run:
+First:
 
 ```sh
 brew tap g-k/homebrew-llamafile
+```
+
+Then run:
+
+```sh
 brew install llamafile
 ```
 
-or `brew install --with-extras llamafile` to install the other binaries like whisperfile.
+to install the `llamafile` command.
 
+Or add `--with-extras` to install the other binaries like `whisperfile`:
 
-Note that llamafiles are also an executable format and can embed LLM models directly.
+```sh
+brew install --with-extras llamafile
+```
+
+Note: llamafiles can also be run directly.
