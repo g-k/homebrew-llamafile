@@ -1,7 +1,8 @@
-This is an unofficial Homebrew custom tap to install https://github.com/Mozilla-Ocho/llamafile for OSX on Arm64.
+This is an unofficial Homebrew custom tap to install
+[llamafile](https://github.com/Mozilla-Ocho/llamafile) releases for
+OSX Arm64 (M-series chips).
 
 Note: llamafiles can also be run directly.
-
 
 ### Install
 
@@ -14,11 +15,9 @@ brew install llamafile
 ```
 
 ```sh
-chmod +x $(brew --prefix)/bin/llamafile
-```
-
-```sh
 llamafile --version
+whisperfile --version
+llamafiler --version
 ```
 
 ### Uninstall
