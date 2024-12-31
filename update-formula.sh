@@ -82,7 +82,7 @@ sed -i '' \
 # refs: https://github.com/orgs/Homebrew/discussions/4864#discussioncomment-7395133
 echo "Verifying formula..."
 brew tap-new g-k/homebrew-llamafile-test --no-git
-cp Formula/llamafile.rb $(brew --repository)/Library/Taps/g-k/homebrew-llamafile-test/Formula
+cp "${FORMULA_PATH}" $(brew --repository)/Library/Taps/g-k/homebrew-llamafile-test/Formula
 brew audit --online --strict --skip-style --formula g-k/homebrew-llamafile-test/llamafile
 brew untap g-k/homebrew-llamafile-test
 
