@@ -28,8 +28,13 @@ class Llamafile < Formula
       bin.install "llamafiler-0.8.17" => "llamafiler"
       bin.install "llamafile-bench-0.8.17" => "llamafile-bench"
       bin.install "zipalign-0.8.17" => "zipalign"
+
+      %w[llamafile whisperfile sdfile llamafiler llamafile-bench zipalign].each do |binary|
+        system "chmod", "+x", "#{bin}/#{binary}"
+      end
     else
       bin.install "llamafile-0.8.17" => "llamafile"
+      system "chmod", "+x", "#{bin}/llamafile"
     end
   end
 
