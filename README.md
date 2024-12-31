@@ -7,19 +7,13 @@ First:
 brew tap g-k/homebrew-llamafile
 ```
 
-Then run:
+Then:
 
 ```sh
 brew install llamafile
 ```
 
 to install the `llamafile` command.
-
-Or add `--with-extras` to install the other binaries like `whisperfile`:
-
-```sh
-brew install --with-extras llamafile
-```
 
 Note: llamafiles can also be run directly.
 

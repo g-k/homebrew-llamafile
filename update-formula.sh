@@ -67,8 +67,11 @@ echo "Updating formula with hashes..."
 echo "llamafile-${LATEST_VERSION}=${BINARY_HASH}"
 echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
 # Reset SHA256 values in temporary formula
+# sed -i '' \
+#     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "ZIP_SHA256"/' \
+#     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
+#     "${FORMULA_PATH}"
 sed -i '' \
-    -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "ZIP_SHA256"/' \
     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
     "${FORMULA_PATH}"
 # cat "${FORMULA_PATH}"
