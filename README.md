@@ -22,3 +22,14 @@ brew install --with-extras llamafile
 ```
 
 Note: llamafiles can also be run directly.
+
+
+To uninstall:
+
+```sh
+brew uninstall llamafile
+```
+
+```sh
+brew untap g-k/homebrew-llamafile
+```
