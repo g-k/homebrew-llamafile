@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Configuration
 REPO="Mozilla-Ocho/llamafile"
-FORMULA_PATH="Formula/llamafile.rb"
+FORMULA_PATH="Casks/llamafile.rb"
 TEMP_DIR=$(mktemp -d)
 CACHE_DIR="update-formula-cache"
 trap 'rm -rf "${TEMP_DIR}"' EXIT
@@ -63,32 +63,33 @@ download_or_cache "${LATEST_VERSION}" "llamafile-${LATEST_VERSION}.zip" && \
     ZIP_HASH=$(shasum -a 256 "${TEMP_DIR}/llamafile-${LATEST_VERSION}.zip" | awk '{print $1}')
 
 
-echo "Updating formula with hashes..."
-echo "llamafile-${LATEST_VERSION}=${BINARY_HASH}"
-echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
-# Reset SHA256 values in temporary formula
+# echo "Updating formula with hashes..."
+# echo "llamafile-${LATEST_VERSION}=${BINARY_HASH}"
+# echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
+# # Reset SHA256 values in temporary formula
+# # sed -i '' \
+# #     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "ZIP_SHA256"/' \
+# #     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
+# #     "${FORMULA_PATH}"
 # sed -i '' \
-#     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "ZIP_SHA256"/' \
 #     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
 #     "${FORMULA_PATH}"
-sed -i '' \
-    -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
-    "${FORMULA_PATH}"
-# cat "${FORMULA_PATH}"
-sed -i '' \
-    -e "s/${LAST_VERSION}/${LATEST_VERSION}/g" \
-    -e "s/BINARY_SHA256/${BINARY_HASH}/" \
-    -e "s/ZIP_SHA256/${ZIP_HASH}/" \
-    "${FORMULA_PATH}"
-echo "Printing formula diff..."
-git diff "${FORMULA_PATH}"
+# # cat "${FORMULA_PATH}"
+# sed -i '' \
+#     -e "s/${LAST_VERSION}/${LATEST_VERSION}/g" \
+#     -e "s/BINARY_SHA256/${BINARY_HASH}/" \
+#     -e "s/ZIP_SHA256/${ZIP_HASH}/" \
+#     "${FORMULA_PATH}"
+# echo "Printing formula diff..."
+# git diff "${FORMULA_PATH}"
 
 # Verify formula
 # refs: https://github.com/orgs/Homebrew/discussions/4864#discussioncomment-7395133
 echo "Verifying formula..."
 brew tap-new g-k/homebrew-llamafile-test --no-git
-cp "${FORMULA_PATH}" $(brew --repository)/Library/Taps/g-k/homebrew-llamafile-test/Formula
-brew audit --online --strict --skip-style --formula g-k/homebrew-llamafile-test/llamafile
+mkdir -p $(brew --repository)/Library/Taps/g-k/homebrew-llamafile-test/Casks/
+cp "${FORMULA_PATH}" $(brew --repository)/Library/Taps/g-k/homebrew-llamafile-test/Casks
+# brew audit --online --strict --cask g-k/homebrew-llamafile-test/llamafile
 brew untap g-k/homebrew-llamafile-test
 
 # Create git commit
@@ -99,6 +100,5 @@ git commit -m "Update llamafile to ${LATEST_VERSION}"
 echo "Done! Please review changes and push to repository."
 echo "Users can install with:"
 echo "brew install llamafile              # Basic install"
-echo "brew install llamafile --with-extras  # Install all binaries"
 echo ""
 echo "To clean the download cache, run: $0 clean"
