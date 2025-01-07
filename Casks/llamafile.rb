@@ -2,8 +2,8 @@ cask "llamafile" do
   arch arm: "arm64"
 
   name "llamafile"
-  version "0.8.17"
-  sha256 arm: "8567e1c50aa509c4e63844ddbb934b096fa7cb71e52b75a38392d7caa01cae2b"
+  version "0.9.0"
+  sha256 arm: a2d6877a19ebd33f593c9bb48663cba351d355d2c633e3676e826caa0b66cabf
   url "https://github.com/Mozilla-Ocho/llamafile/releases/download/#{version}/llamafile-#{version}.zip"
   desc "Distribute and run LLMs with a single file"
   homepage "https://github.com/Mozilla-Ocho/llamafile"
