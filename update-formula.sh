@@ -64,7 +64,7 @@ echo "Updating formula with hashes..."
 echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
 sed -i '' \
     -e "s/${LAST_VERSION}/${LATEST_VERSION}/g" \
-    -e "s/sha256 arm: \"[a-f0-9]*\"/sha256 arm: ${ZIP_HASH}/" \
+    -e "s/sha256 arm: [\"a-f0-9]*/sha256 arm: \"${ZIP_HASH}\"/" \
     "${FORMULA_PATH}"
 echo "Printing formula diff..."
 git diff "${FORMULA_PATH}"
