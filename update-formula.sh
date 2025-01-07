@@ -56,32 +56,18 @@ echo "Latest version: ${LATEST_VERSION}"
 echo "Last version: ${LAST_VERSION}"
 
 echo "Downloading assets to ${CACHE_DIR} or copying to ${TEMP_DIR}..."
-download_or_cache "${LATEST_VERSION}" "llamafile-${LATEST_VERSION}" && \
-    BINARY_HASH=$(shasum -a 256 "${TEMP_DIR}/llamafile-${LATEST_VERSION}" | awk '{print $1}')
-
 download_or_cache "${LATEST_VERSION}" "llamafile-${LATEST_VERSION}.zip" && \
     ZIP_HASH=$(shasum -a 256 "${TEMP_DIR}/llamafile-${LATEST_VERSION}.zip" | awk '{print $1}')
 
 
-# echo "Updating formula with hashes..."
-# echo "llamafile-${LATEST_VERSION}=${BINARY_HASH}"
-# echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
-# # Reset SHA256 values in temporary formula
-# # sed -i '' \
-# #     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "ZIP_SHA256"/' \
-# #     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
-# #     "${FORMULA_PATH}"
-# sed -i '' \
-#     -e '1,/sha256 "[a-f0-9]*"/ s/sha256 "[a-f0-9]*"/sha256 "BINARY_SHA256"/' \
-#     "${FORMULA_PATH}"
-# # cat "${FORMULA_PATH}"
-# sed -i '' \
-#     -e "s/${LAST_VERSION}/${LATEST_VERSION}/g" \
-#     -e "s/BINARY_SHA256/${BINARY_HASH}/" \
-#     -e "s/ZIP_SHA256/${ZIP_HASH}/" \
-#     "${FORMULA_PATH}"
-# echo "Printing formula diff..."
-# git diff "${FORMULA_PATH}"
+echo "Updating formula with hashes..."
+echo "llamafile-${LATEST_VERSION}.zip=${ZIP_HASH}"
+sed -i '' \
+    -e "s/${LAST_VERSION}/${LATEST_VERSION}/g" \
+    -e "s/sha256 arm: \"[a-f0-9]*\"/sha256 arm: ${ZIP_HASH}/" \
+    "${FORMULA_PATH}"
+echo "Printing formula diff..."
+git diff "${FORMULA_PATH}"
 
 # Verify formula
 # refs: https://github.com/orgs/Homebrew/discussions/4864#discussioncomment-7395133
@@ -99,6 +85,6 @@ git commit -m "Update llamafile to ${LATEST_VERSION}"
 
 echo "Done! Please review changes and push to repository."
 echo "Users can install with:"
-echo "brew install llamafile              # Basic install"
+echo "brew install llamafile"
 echo ""
 echo "To clean the download cache, run: $0 clean"
