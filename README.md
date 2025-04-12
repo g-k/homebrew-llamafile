@@ -18,6 +18,7 @@ brew install llamafile
 llamafile --version
 whisperfile --version
 llamafiler --version
+localscore -h
 ```
 
 ### Uninstall
