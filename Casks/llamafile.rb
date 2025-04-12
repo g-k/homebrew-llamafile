@@ -22,5 +22,6 @@ cask "llamafile" do
   binary "llamafile-#{version}/bin/llamafile-tokenize"
   binary "llamafile-#{version}/bin/llamafile-upgrade-engine"
   binary "llamafile-#{version}/bin/llamafiler"
+  binary "llamafile-#{version}/bin/localscore"
   binary "llamafile-#{version}/bin/whisperfile"
 end
